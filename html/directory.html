@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>Ode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+body {
+  min-height: 100%;
+  min-width: 100%;
+  margin: 0px;
+}
+#bar {
+  height: 10%;
+  width: 100%;
+  line-height: 500%;
+  background: #3366ee;
+  background: -moz-linear-gradient(45deg, rgba(27,54,127,1) 0%, rgba(51,102,238,1) 50%, rgba(90,150,255,1) 100%);
+  background: -webkit-linear-gradient(45deg, rgba(27,54,127,1) 0%, rgba(51,102,238,1) 50%, rgba(90,150,255,1) 100%);
+  background: linear-gradient(45deg, rgba(27,54,127,1) 0%, rgba(51,102,238,1) 50%, rgba(90,150,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1b367f",endColorstr="#5a96ff",GradientType=1);
+}
+#body {
+  height: 90%;
+  width: 100%;
+  position: absolute;
+  top: 10%;
+  background-color: #000000;
+}
+#bar p {
+  font-family: Ubuntu Mono;
+  color: #00ff00;
+  text-align: center;
+  font-size: 24px;
+}
+#content > p {
+  font-family: Ubuntu Mono;
+  color: #00ff00;
+  font-size: 24px;
+}
+#content {
+  width: 80%;
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  border-radius: 8px;
+  border: 2px solid #777777;
+  background-color: #000000;
+  overflow: auto;
+}
+#latest_commit {
+  background-color: #333333;
+  position: relative;
+  margin: 0px;
+  float: top;
+  padding: 8px;
+  font-family: Ubuntu Mono;
+}
+#latest_commit h3 {
+  margin: 0px;
+  color: #ffffff;
+  float: left;
+}
+#latest_commit::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+#user {
+  font-size: 20px;
+  line-height: 20px;
+}
+#desc {
+  font-size: 16px;
+  line-height: 20px;
+}
+.item {
+  background-color: #000000;
+  position: relative;
+  margin: 0px;
+  float: top;
+  padding: 8px;
+  font-family: Ubuntu Mono;
+}
+.item:hover {
+  background-color: #171717;
+}
+.item p {
+  margin: 0px;
+  color: #5a96ff;
+}
+</style>
+</head>
+<body>
+<div id="bar">
+<p>REPO:BRANCH/PATH</p>
+</div>
+<div id="body">
+<br>
+<div id="content">
+<div id="latest_commit">
+<h3 id="user"><b>USER</b></h3>
+<h3>&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+<h3 id="desc">COMMIT</h3>
+</div>
+</div>
+</div>
+<script>
+function GET(param) {
+  let result = null;
+  let tmp = [];
+  let params = location.search.substr(1).split("&");
+  console.log(params);
+  for (let i=0; i<params.length; i++) {
+    tmp = params[i].split("=");
+    if (tmp[0] === param) result = decodeURIComponent(tmp[1]);
+  }
+  return result;
+}
+var string = GET("items");
+var items = JSON.parse(string);
+for (let i=0; i<items.length; i++) {
+  let target = $("<div class=\"item\"><p>" + items[i] + "</p></div>");
+  target.click(function() {
+    alert("Go to " + items[i]);
+  });
+  $("#content").append(target);
+}
+</script>
+</body>
+</html>
